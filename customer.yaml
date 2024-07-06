@@ -1,0 +1,143 @@
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+  - url: http://localhost:4000
+paths:
+  /auth/customers:
+    post:
+      summary: Create customer
+      description: Create customer with detailed informations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fullName:
+                  type: string
+                  example: "Quan"
+                email:
+                  type: string
+                  example: "quan@example.com"
+                address:
+                  type: string
+                  example: "123 Mac Dinh Chi"
+                phoneNumber:
+                  type: string
+                  example: "1234567890"
+              required:
+                - fullName
+                - email
+                - address
+                - phoneNumber
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  customerId:
+                    type: string
+                    example: "customer_123"
+        "400":
+          description: Invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input"
+    get:
+      summary: Get customer information
+      description: Retrieve detailed information of a customer
+      parameters:
+        - in: path
+          name: customerId
+          schema:
+            type: string
+          required: true
+          description: ID of the customer
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  customerId:
+                    type: string
+                    example: "CUST123"
+                  fullName:
+                    type: string
+                    example: "Quan"
+                  email:
+                    type: string
+                    example: "quan@example.com"
+                  address:
+                    type: string
+                    example: "123 Mac Dinh Chi"
+                  phoneNumber:
+                    type: string
+                    example: "1234567890"
+    put:
+      summary: Update customer information
+      description: Update information of a customer
+      parameters:
+        - in: path
+          name: customerId
+          schema:
+            type: string
+          required: true
+          description: ID of the customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fullName:
+                  type: string
+                  example: "Quan"
+                email:
+                  type: string
+                  example: "quan@example.com"
+                address:
+                  type: string
+                  example: "123 Mac Dinh Chi"
+                phoneNumber:
+                  type: string
+                  example: "1234567890"
+      responses:
+        "200":
+          description: Update successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  customerId:
+                    type: string
+                    example: "CUST123"
+    delete:
+      summary: Delete customer
+      description: Delete a customer
+      parameters:
+        - in: path
+          name: customerId
+          schema:
+            type: string
+          required: true
+          description: ID of the customer
+      responses:
+        "204":
+          description: Delete successful

@@ -1,0 +1,54 @@
+paths:
+  /products/productVariants:
+    post:
+      summary: Create product variant
+      description: Create product variant with detailed informations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: string
+                  example: "product_123"
+                size:
+                  type: string
+                  example: "M"
+                color:
+                  type: string
+                  example: "Red"
+                price:
+                  type: number
+                  example: 100.0
+                stockLevel:
+                  type: integer
+                  example: 50
+              required:
+                - productId
+                - size
+                - color
+                - price
+                - stockLevel
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productVariantId:
+                    type: string
+                    example: "variant_123"
+        "400":
+          description: Failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input"

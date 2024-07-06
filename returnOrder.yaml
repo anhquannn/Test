@@ -1,0 +1,127 @@
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: http://localhost:3306
+paths:
+  /return-order:
+    post:
+      summary: Create return order
+      description: Create a new return order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Return_ID:
+                  type: string
+                  example: "RET123"
+                Reason:
+                  type: string
+                  example: "Defective product"
+                Status:
+                  type: string
+                  example: "Pending"
+                RefundAmount:
+                  type: number
+                  format: double
+                  example: 50.0
+                OrderID:
+                  type: string
+                  example: "ORD123"
+              required:
+                - Reason
+                - Status
+                - RefundAmount
+      responses:
+        "201":
+          description: Return order created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Return_ID:
+                    type: string
+                    example: "RET123"
+    get:
+      summary: Get list of return orders
+      description: Retrieve a list of all return orders
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Return_ID:
+                      type: string
+                      example: "RET123"
+                    Reason:
+                      type: string
+                      example: "Defective product"
+                    Status:
+                      type: string
+                      example: "Pending"
+                    RefundAmount:
+                      type: number
+                      format: double
+                      example: 50.0
+                    OrderID:
+                      type: string
+                      example: "ORD123"
+  /return-order/{Return_ID}:
+    put:
+      summary: Update return order
+      description: Update an existing return order
+      parameters:
+        - in: path
+          name: Return_ID
+          required: true
+          schema:
+            type: string
+            example: "RET123"
+          description: ID of the return order to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Reason:
+                  type: string
+                  example: "Defective product"
+                Status:
+                  type: string
+                  example: "Approved"
+                RefundAmount:
+                  type: number
+                  format: double
+                  example: 50.0
+                OrderID:
+                  type: string
+                  example: "ORD123"
+      responses:
+        "200":
+          description: Return order updated successfully
+    delete:
+      summary: Delete return order
+      description: Delete an existing return order
+      parameters:
+        - in: path
+          name: Return_ID
+          required: true
+          schema:
+            type: string
+            example: "RET123"
+          description: ID of the return order to delete
+      responses:
+        "204":
+          description: Return order deleted successfully

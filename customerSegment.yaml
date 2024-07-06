@@ -1,0 +1,115 @@
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+  - url: http://localhost:4000
+paths:
+  /customer/segment:
+    post:
+      summary: Create customer segment
+      description: Create a new customer segment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Segment_ID:
+                  type: string
+                  example: "SEG123"
+                Name:
+                  type: string
+                  example: "VIP"
+                Type:
+                  type: string
+                  example: "Premium"
+                CustomerID:
+                  type: string
+                  example: "CUS123"
+              required:
+                - Name
+                - Type
+      responses:
+        "201":
+          description: Customer segment created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Segment_ID:
+                    type: string
+                    example: "SEG123"
+    get:
+      summary: Get list of customer segments
+      description: Retrieve a list of all customer segments
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Segment_ID:
+                      type: string
+                      example: "SEG123"
+                    Name:
+                      type: string
+                      example: "VIP"
+                    Type:
+                      type: string
+                      example: "Premium"
+                    CustomerID:
+                      type: string
+                      example: "CUS123"
+  /customer/segment/{Segment_ID}:
+    put:
+      summary: Update customer segment
+      description: Update an existing customer segment
+      parameters:
+        - in: path
+          name: Segment_ID
+          required: true
+          schema:
+            type: string
+            example: "SEG123"
+          description: ID of the customer segment to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Name:
+                  type: string
+                  example: "Updated VIP"
+                Type:
+                  type: string
+                  example: "Premium"
+                CustomerID:
+                  type: string
+                  example: "CUS123"
+      responses:
+        "200":
+          description: Customer segment updated successfully
+    delete:
+      summary: Delete customer segment
+      description: Delete an existing customer segment
+      parameters:
+        - in: path
+          name: Segment_ID
+          required: true
+          schema:
+            type: string
+            example: "SEG123"
+          description: ID of the customer segment to delete
+      responses:
+        "204":
+          description: Customer segment deleted successfully

@@ -1,0 +1,60 @@
+openapi: 3.0.3
+info:
+  title: User Management API
+  version: 1.0.0
+  description: API cho việc quản lý người dùng trong hệ thống
+servers:
+  - url: https://api.server.test/v1
+  - url: http://localhost:4000
+paths:
+  /auth/roles:
+    post:
+      summary: Create new permission
+      description: Create new permission with precise roles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "admin"
+                permissions:
+                  type: array
+                  items:
+                    type: string
+                  example: ["create_user", "delete_user"]
+              required:
+                - name
+                - permissions
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "role_123"
+                  name:
+                    type: string
+                    example: "admin"
+                  permissions:
+                    type: array
+                    items:
+                      type: string
+                    example: ["create_user", "delete_user"]
+        "400":
+          description: Failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input"

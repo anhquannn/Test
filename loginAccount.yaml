@@ -1,0 +1,49 @@
+# Login
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: http://localhost:3306
+paths:
+  /auth/login:
+    post:
+      summary: Login
+      description: Login with detailed informations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userName:
+                  type: string
+                  example: "quan"
+                password:
+                  type: string
+                  example: "p123"
+              required:
+                - userName
+                - password
+      responses:
+        "200":
+          description: Login Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "jwt_token"
+        "401":
+          description: Failed!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input"

@@ -1,0 +1,62 @@
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+  - url: http://localhost:4000
+paths:
+  /deliveryInfos:
+    post:
+      summary: Create new delivery info
+      description: Create new delivery info with order and address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                orderId:
+                  type: string
+                  example: "order_123"
+                addressId:
+                  type: string
+                  example: "address_123"
+                providerId:
+                  type: string
+                  example: "provider_123"
+                deliveryFee:
+                  type: number
+                  example: 5.0
+                deliveryDate:
+                  type: string
+                  format: date-time
+                  example: "2023-07-04T10:00:00Z"
+              required:
+                - orderId
+                - addressId
+                - providerId
+                - deliveryFee
+                - deliveryDate
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deliveryInfoId:
+                    type: string
+                    example: "deliveryInfo_123"
+        "400":
+          description: Failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input"

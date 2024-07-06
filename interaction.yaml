@@ -1,0 +1,128 @@
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+  - url: http://localhost:4000
+paths:
+  /interaction:
+    post:
+      summary: Create interaction
+      description: Create a new interaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Interaction_ID:
+                  type: string
+                  example: "INT123"
+                Type:
+                  type: string
+                  example: "Support"
+                Date:
+                  type: string
+                  format: date-time
+                  example: "2024-07-01T10:00:00Z"
+                Details:
+                  type: string
+                  example: "Customer support interaction regarding product issue"
+                CustomerID:
+                  type: string
+                  example: "CUS123"
+              required:
+                - Type
+                - Date
+                - Details
+      responses:
+        "201":
+          description: Interaction created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Interaction_ID:
+                    type: string
+                    example: "INT123"
+    get:
+      summary: Get list of interactions
+      description: Retrieve a list of all interactions
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Interaction_ID:
+                      type: string
+                      example: "INT123"
+                    Type:
+                      type: string
+                      example: "Support"
+                    Date:
+                      type: string
+                      format: date-time
+                      example: "2024-07-01T10:00:00Z"
+                    Details:
+                      type: string
+                      example: "Customer support interaction regarding product issue"
+                    CustomerID:
+                      type: string
+                      example: "CUS123"
+  /interaction/{Interaction_ID}:
+    put:
+      summary: Update interaction
+      description: Update an existing interaction
+      parameters:
+        - in: path
+          name: Interaction_ID
+          required: true
+          schema:
+            type: string
+            example: "INT123"
+          description: ID of the interaction to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Type:
+                  type: string
+                  example: "Updated Support"
+                Date:
+                  type: string
+                  format: date-time
+                  example: "2024-07-01T10:00:00Z"
+                Details:
+                  type: string
+                  example: "Updated details of customer support interaction"
+                CustomerID:
+                  type: string
+                  example: "CUS123"
+      responses:
+        "200":
+          description: Interaction updated successfully
+    delete:
+      summary: Delete interaction
+      description: Delete an existing interaction
+      parameters:
+        - in: path
+          name: Interaction_ID
+          required: true
+          schema:
+            type: string
+            example: "INT123"
+          description: ID of the interaction to delete
+      responses:
+        "204":
+          description: Interaction deleted successfully

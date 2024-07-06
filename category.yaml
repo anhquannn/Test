@@ -1,0 +1,113 @@
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: http://localhost:3306
+paths:
+  /category:
+    post:
+      summary: Create product category
+      description: Create a new product category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Category_ID:
+                  type: string
+                  example: "CAT123"
+                Categoryname:
+                  type: string
+                  example: "Electronics"
+                Description:
+                  type: string
+                  example: "Electronic devices and accessories"
+                ParentCategoryID:
+                  type: string
+                  example: "CAT001"
+              required:
+                - Categoryname
+      responses:
+        "201":
+          description: Product category created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Category_ID:
+                    type: string
+                    example: "CAT123"
+    get:
+      summary: Get list of product categories
+      description: Retrieve a list of all product categories
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Category_ID:
+                      type: string
+                      example: "CAT123"
+                    Categoryname:
+                      type: string
+                      example: "Electronics"
+                    Description:
+                      type: string
+                      example: "Electronic devices and accessories"
+                    ParentCategoryID:
+                      type: string
+                      example: "CAT001"
+  /category/{Category_ID}:
+    put:
+      summary: Update product category
+      description: Update an existing product category
+      parameters:
+        - in: path
+          name: Category_ID
+          required: true
+          schema:
+            type: string
+            example: "CAT123"
+          description: ID of the product category to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Categoryname:
+                  type: string
+                  example: "Updated Electronics"
+                Description:
+                  type: string
+                  example: "Consumer electronics including TVs, laptops, and smartphones"
+                ParentCategoryID:
+                  type: string
+                  example: "CAT001"
+      responses:
+        "200":
+          description: Product category updated successfully
+    delete:
+      summary: Delete product category
+      description: Delete an existing product category
+      parameters:
+        - in: path
+          name: Category_ID
+          required: true
+          schema:
+            type: string
+            example: "CAT123"
+          description: ID of the product category to delete
+      responses:
+        "204":
+          description: Product category deleted successfully

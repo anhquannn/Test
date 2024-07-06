@@ -1,0 +1,54 @@
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+  - url: http://localhost:4000
+paths:
+  /reports/sales:
+    get:
+      summary: Create new report
+      description: Create new report with detailed informations
+      parameters:
+        - name: startDate
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          example: "2023-01-01"
+        - name: endDate
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          example: "2023-01-31"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalSales:
+                    type: number
+                    example: 1000000
+                  totalOrders:
+                    type: integer
+                    example: 100
+                  totalCustomers:
+                    type: integer
+                    example: 50
+        "400":
+          description: Failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input"

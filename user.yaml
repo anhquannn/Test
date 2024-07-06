@@ -1,0 +1,53 @@
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+  - url: http://localhost:4000
+paths:
+  /auth/login:
+    post:
+      summary: Create account
+      description: Create account with detailed informations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userName:
+                  type: string
+                  example: "Quan"
+                passwordHash:
+                  type: string
+                  example: "quan123"
+                email:
+                  type: string
+                  example: "quan@gmail.com"
+              required:
+                - userName
+                - passwordHash
+                - email
+      responses:
+        "201":
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userID:
+                    type: string
+                    example: "U1"
+        "400":
+          description: Failed!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input!"

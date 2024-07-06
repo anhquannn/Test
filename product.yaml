@@ -1,0 +1,149 @@
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+  - url: http://localhost:4000
+paths:
+  /products:
+    post:
+      summary: Create product
+      description: Create product with detailed informations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productName:
+                  type: string
+                  example: "Laptop"
+                categoryId:
+                  type: string
+                  example: "category_123"
+              required:
+                - productName
+                - categoryId
+      responses:
+        "201":
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId:
+                    type: string
+                    example: "product_123"
+        "400":
+          description: Failed!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input"
+    get:
+      summary: Get product list
+      description: Retrieve list of all products
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    productId:
+                      type: string
+                      example: "product_123"
+                    productName:
+                      type: string
+                      example: "Laptop"
+                    categoryId:
+                      type: string
+                      example: "category_123"
+  /products/{productId}:
+    get:
+      summary: Get product information
+      description: Retrieve detailed information of a product
+      parameters:
+        - in: path
+          name: productId
+          schema:
+            type: string
+          required: true
+          description: ID of the product
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId:
+                    type: string
+                    example: "product_123"
+                  productName:
+                    type: string
+                    example: "Laptop"
+                  categoryId:
+                    type: string
+                    example: "category_123"
+    put:
+      summary: Update product information
+      description: Update information of a product
+      parameters:
+        - in: path
+          name: productId
+          schema:
+            type: string
+          required: true
+          description: ID of the product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productName:
+                  type: string
+                  example: "Laptop"
+                categoryId:
+                  type: string
+                  example: "category_123"
+              required:
+                - productName
+                - categoryId
+      responses:
+        "200":
+          description: Update successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId:
+                    type: string
+                    example: "product_123"
+    delete:
+      summary: Delete product
+      description: Delete a product
+      parameters:
+        - in: path
+          name: productId
+          schema:
+            type: string
+          required: true
+          description: ID of the product
+      responses:
+        "204":
+          description: Delete successful

@@ -1,0 +1,59 @@
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+  - url: http://localhost:4000
+paths:
+  /campaigns:
+    post:
+      summary: Create new campaign
+      description: Create new campaign with detailed informations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Summer Sale"
+                description:
+                  type: string
+                  example: "Giảm giá mùa hè"
+                startDate:
+                  type: string
+                  format: date-time
+                  example: "2023-07-01T00:00:00Z"
+                endDate:
+                  type: string
+                  format: date-time
+                  example: "2023-07-31T23:59:59Z"
+              required:
+                - name
+                - description
+                - startDate
+                - endDate
+      responses:
+        "201":
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userID:
+                    type: string
+                    example: "U1"
+        "400":
+          description: Failed!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input!"

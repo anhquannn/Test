@@ -1,0 +1,173 @@
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+  - url: http://localhost:4000
+paths:
+  /orders:
+    post:
+      summary: Create new order
+      description: Create new order with detailed informations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                  example: "customer_123"
+                totalAmount:
+                  type: number
+                  example: 200.0
+                status:
+                  type: string
+                  example: "pending"
+                deliveryId:
+                  type: string
+                  example: "delivery_123"
+              required:
+                - customerId
+                - totalAmount
+                - status
+                - deliveryId
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orderId:
+                    type: string
+                    example: "order_123"
+        "400":
+          description: Failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input"
+    get:
+      summary: Get order list
+      description: Get all of order list
+      responses:
+        "200":
+          description: TSuccess
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    orderId:
+                      type: string
+                      example: "order_123"
+                    customerId:
+                      type: string
+                      example: "customer_123"
+                    totalAmount:
+                      type: number
+                      example: 200.0
+                    status:
+                      type: string
+                      example: "pending"
+                    deliveryId:
+                      type: string
+                      example: "delivery_123"
+  /orders/{orderId}:
+    get:
+      summary: Get order information
+      description: Get order detailed informations
+      parameters:
+        - in: path
+          name: orderId
+          schema:
+            type: string
+          required: true
+          description: ID of order
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  properties:
+                    orderId:
+                      type: string
+                      example: "order_123"
+                    customerId:
+                      type: string
+                      example: "customer_123"
+                    totalAmount:
+                      type: number
+                      example: 200.0
+                    status:
+                      type: string
+                      example: "pending"
+                    deliveryId:
+                      type: string
+                      example: "delivery_123"
+    put:
+      summary: Update order
+      description: Update order information
+      parameters:
+        - in: path
+          name: orderId
+          schema:
+            type: string
+          required: true
+          description: ID of order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                  example: "customer_123"
+                totalAmount:
+                  type: number
+                  example: 200.0
+                status:
+                  type: string
+                  example: "pending"
+                deliveryId:
+                  type: string
+                  example: "delivery_123"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  properties:
+                    orderId:
+                      type: string
+                      example: "order_123"
+    delete:
+      summary: Delete a order
+      description: Delete a order
+      parameters:
+        - in: path
+          name: orderId
+          schema:
+            type: string
+          required: true
+          description: ID of order
+      responses:
+        "204":
+          description: Success
